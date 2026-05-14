@@ -3,28 +3,33 @@ using UnityEngine;
 public class FishMove : MonoBehaviour
 {
     public float speed = 2f;
-
-    // Pond center
-    public Vector3 pondCenter;
-
-    // Pond size
+    public Vector3 pondCenter = Vector3.zero;
     public float pondRadius = 3f;
+
+    void Start()
+    {
+        // Place fish inside pond at random position
+        Vector2 randomCircle = Random.insideUnitCircle * pondRadius;
+        transform.position = pondCenter + new Vector3(randomCircle.x, 0, randomCircle.y);
+
+        // Random facing direction
+        transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+    }
 
     void Update()
     {
         // Move forward
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        // Distance from center
+        // Check distance from pond center
         float distance = Vector3.Distance(transform.position, pondCenter);
 
-        // If fish goes outside pond
         if (distance > pondRadius)
         {
-            // Turn back toward center
+            // Smoothly turn back toward center
             Vector3 direction = (pondCenter - transform.position).normalized;
-
-            transform.rotation = Quaternion.LookRotation(direction);
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2f);
         }
 
         // Random turning
