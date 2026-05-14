@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimalSound : MonoBehaviour
+public class ChickenSound : MonoBehaviour
 {
     private AudioSource horseAudio;
 
@@ -11,7 +11,7 @@ public class AnimalSound : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             horseAudio.Play();
         }
