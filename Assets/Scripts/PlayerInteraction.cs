@@ -6,7 +6,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
