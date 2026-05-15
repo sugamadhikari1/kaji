@@ -7,7 +7,7 @@ public class GateInteraction : MonoBehaviour
     public Vector3 closedRotation;
     public Vector3 openRotation;
 
-    public float speed = -2f;
+    public float speed = 2f;
 
     private Quaternion targetRotation;
 

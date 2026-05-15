@@ -7,6 +7,8 @@ TagManager:
   - CinemachineTarget
   - Nodes
   - Food
+  - Informatic
+  - Information
   layers:
   - Default
   - TransparentFX
