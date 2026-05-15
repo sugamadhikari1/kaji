@@ -3,62 +3,40 @@ using UnityEngine;
 public class GateInteraction : MonoBehaviour
 {
     public bool isOpen = false;
-    public float openAngle = 90f;
-    public float speed = 2f;
 
-    private Quaternion closedRotation;
-    private Quaternion openRotation;
+    public Vector3 closedRotation;
+    public Vector3 openRotation;
 
-    private bool playerNear = false;
+    public float speed = -2f;
+
+    private Quaternion targetRotation;
 
     void Start()
     {
-        closedRotation = transform.rotation;
-        openRotation = Quaternion.Euler(
-            transform.eulerAngles.x,
-            transform.eulerAngles.y + openAngle,
-            transform.eulerAngles.z
-        );
+        closedRotation = transform.eulerAngles;
+        targetRotation = Quaternion.Euler(closedRotation);
     }
 
     void Update()
     {
-        if (playerNear && Input.GetKeyDown(KeyCode.E))
-        {
-            isOpen = !isOpen;
-        }
+        transform.rotation = Quaternion.Lerp(
+            transform.rotation,
+            targetRotation,
+            Time.deltaTime * speed
+        );
+    }
+
+    public void ToggleGate()
+    {
+        isOpen = !isOpen;
 
         if (isOpen)
         {
-            transform.rotation = Quaternion.Lerp(
-                transform.rotation,
-                openRotation,
-                Time.deltaTime * speed
-            );
+            targetRotation = Quaternion.Euler(openRotation);
         }
         else
         {
-            transform.rotation = Quaternion.Lerp(
-                transform.rotation,
-                closedRotation,
-                Time.deltaTime * speed
-            );
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerNear = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerNear = false;
+            targetRotation = Quaternion.Euler(closedRotation);
         }
     }
 }
