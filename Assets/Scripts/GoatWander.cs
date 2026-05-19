@@ -4,7 +4,7 @@ public class GoatWander : MonoBehaviour
 {
     public float speed = 1.5f;
     public float turnSpeed = 2f;
-    public Transform penCenter;  // drag your pen's center object here
+    public Transform penCenter;
     public Vector3 areaSize = new Vector3(12f, 0f, 12f);
 
     private Vector3 target;
@@ -29,7 +29,6 @@ public class GoatWander : MonoBehaviour
             waitTimer = Random.Range(1f, 4f);
         }
 
-        // 🔒 Force goat back inside if it somehow escapes
         ClampToPen();
     }
 
@@ -38,8 +37,8 @@ public class GoatWander : MonoBehaviour
         Vector3 center = penCenter != null ? penCenter.position : Vector3.zero;
 
         target = center + new Vector3(
-            Random.Range(-areaSize.x / 2 + 0.5f, areaSize.x / 2 - 0.5f),  // 0.5 padding
-            transform.position.y,
+            Random.Range(-areaSize.x / 2 + 0.5f, areaSize.x / 2 - 0.5f),
+            0f, // ✅ fixed: was transform.position.y which caused upward drift
             Random.Range(-areaSize.z / 2 + 0.5f, areaSize.z / 2 - 0.5f)
         );
     }
@@ -49,8 +48,8 @@ public class GoatWander : MonoBehaviour
         Vector3 center = penCenter != null ? penCenter.position : Vector3.zero;
         Vector3 pos = transform.position;
 
-        // Hard clamp — goat physically cannot leave the box
         pos.x = Mathf.Clamp(pos.x, center.x - areaSize.x / 2, center.x + areaSize.x / 2);
+        pos.y = center.y; // ✅ fixed: lock Y to pen height
         pos.z = Mathf.Clamp(pos.z, center.z - areaSize.z / 2, center.z + areaSize.z / 2);
 
         transform.position = pos;
