@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class ChickenSound : MonoBehaviour
 {
-    private AudioSource horseAudio;
+    private AudioSource chickenAudio;
 
     void Start()
     {
-        horseAudio = GetComponent<AudioSource>();
+        chickenAudio = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            horseAudio.Play();
+            chickenAudio.Play();
         }
     }
 }

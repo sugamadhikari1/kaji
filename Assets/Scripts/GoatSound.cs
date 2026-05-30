@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class GoatSound : MonoBehaviour
 {
-    private AudioSource horseAudio;
+    private AudioSource goatAudio;
 
     void Start()
     {
-        horseAudio = GetComponent<AudioSource>();
+        goatAudio = GetComponent<AudioSource>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            horseAudio.Play();
+            goatAudio.Play();
         }
     }
 }

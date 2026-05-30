@@ -38,7 +38,7 @@ public class GoatWander : MonoBehaviour
 
         target = center + new Vector3(
             Random.Range(-areaSize.x / 2 + 0.5f, areaSize.x / 2 - 0.5f),
-            0f, // ✅ fixed: was transform.position.y which caused upward drift
+            0f, 
             Random.Range(-areaSize.z / 2 + 0.5f, areaSize.z / 2 - 0.5f)
         );
     }
@@ -49,7 +49,7 @@ public class GoatWander : MonoBehaviour
         Vector3 pos = transform.position;
 
         pos.x = Mathf.Clamp(pos.x, center.x - areaSize.x / 2, center.x + areaSize.x / 2);
-        pos.y = center.y; // ✅ fixed: lock Y to pen height
+        pos.y = center.y; 
         pos.z = Mathf.Clamp(pos.z, center.z - areaSize.z / 2, center.z + areaSize.z / 2);
 
         transform.position = pos;
